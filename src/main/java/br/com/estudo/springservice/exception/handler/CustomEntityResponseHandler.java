@@ -1,0 +1,39 @@
+package br.com.estudo.springservice.exception.handler;
+
+import br.com.estudo.springservice.exception.ErrorResponse;
+import br.com.estudo.springservice.exception.UnsupportedMathOperationException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import java.util.Date;
+
+
+@ControllerAdvice
+@RestController
+public class CustomEntityResponseHandler extends ResponseEntityExceptionHandler {
+
+    @ExceptionHandler(Exception.class)
+    public final ResponseEntity<ErrorResponse> handleUnknowException(Exception ex, WebRequest request) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                new Date(),
+                ex.getMessage(),
+                request.getDescription(false)
+        );
+        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+    };
+
+    @ExceptionHandler(UnsupportedMathOperationException.class)
+    public final ResponseEntity<ErrorResponse> handleUnsupportedMathOperationException(Exception ex, WebRequest request) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                new Date(),
+                ex.getMessage(),
+                request.getDescription(false)
+        );
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+}
