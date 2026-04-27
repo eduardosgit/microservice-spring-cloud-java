@@ -1,1 +1,15 @@
-spring.application.name=rest-spring-service
+spring:
+  application:
+    name: spring-poc
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.driver
+    url: jdbc:mysql://localhost:3306/spring-poc?useTimezone=true?serverTimezone=UTC
+    username: developer
+    password: rante123
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+      show-sql: false

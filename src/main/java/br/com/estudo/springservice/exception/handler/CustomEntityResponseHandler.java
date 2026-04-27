@@ -1,7 +1,7 @@
 package br.com.estudo.springservice.exception.handler;
 
 import br.com.estudo.springservice.exception.ErrorResponse;
-import br.com.estudo.springservice.exception.UnsupportedMathOperationException;
+import br.com.estudo.springservice.exception.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -27,13 +27,13 @@ public class CustomEntityResponseHandler extends ResponseEntityExceptionHandler 
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     };
 
-    @ExceptionHandler(UnsupportedMathOperationException.class)
-    public final ResponseEntity<ErrorResponse> handleUnsupportedMathOperationException(Exception ex, WebRequest request) {
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public final ResponseEntity<ErrorResponse> handleResourceNotFoundException(Exception ex, WebRequest request) {
         ErrorResponse errorResponse = new ErrorResponse(
                 new Date(),
                 ex.getMessage(),
                 request.getDescription(false)
         );
-        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 }
