@@ -1,15 +1,14 @@
 package br.com.estudo.springservice.services;
 
-import br.com.estudo.springservice.model.Person;
+import br.com.estudo.springservice.domain.Person;
 import br.com.estudo.springservice.repositories.PersonRepository;
+import br.com.estudo.springservice.resources.request.PersonRequest;
+import br.com.estudo.springservice.resources.response.PersonResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 
 @Slf4j
 @Service
@@ -18,35 +17,52 @@ public class PersonService {
 
     private final PersonRepository personRepository;
 
-    public Person findById(String id) {
+    public PersonResponse findPersonById(Long id) {
         log.info("M=findById");
 
-        return Person.builder()
-                .id(counter.incrementAndGet())
-                .name("Eduardo")
-                .email("email@gmail.com")
+        return new PersonResponse(findOrThrow(id));
+    }
+
+    public List<PersonResponse> findAllPersons() {
+        log.info("M=findAllPersons");
+
+        return personRepository.findAll()
+                .stream()
+                .map(PersonResponse::new)
+                .toList();
+    }
+
+    public PersonResponse createPerson(PersonRequest personRequest) {
+        log.info("M=createPerson");
+
+        Person person = Person.builder()
+                .name(personRequest.name())
+                .email(personRequest.email())
                 .build();
+
+        return new PersonResponse(personRepository.save(person));
     }
 
-    public List<Person> findAll() {
-        log.info("M=findAll");
-        List<Person> persons = new ArrayList<>();
-        return persons;
+    public void removePerson(Long id) {
+        log.info("M=removePerson");
+
+        personRepository.delete(findOrThrow(id));
     }
 
-    public Person createPerson(Person person) {
-        log.info("M=save");
-        return person;
+    public PersonResponse updatePerson(Long id, PersonRequest personRequest) {
+        log.info("M=updatePerson");
+
+        Person personEntity = findOrThrow(id);
+
+        personEntity.setName(personRequest.name());
+        personEntity.setEmail(personRequest.email());
+
+        return new PersonResponse(personRepository.save(personEntity));
     }
 
-    public void removePerson(Person person) {
-        log.info("M=remove");
-
-    }
-
-    public Person updatePerson(Person person) {
-        log.info("M=update");
-        return person;
+    private Person findOrThrow(Long id) {
+        return personRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Person not found"));
     }
 
 }

@@ -1,6 +1,11 @@
 package br.com.estudo.springservice.exception;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
-public record ErrorResponse(Date timestamp, String message, String details) {
-}
+public record ErrorResponse(
+        int status,
+        String errors,
+        String message,
+        String path,
+        LocalDateTime timestamp
+) {}

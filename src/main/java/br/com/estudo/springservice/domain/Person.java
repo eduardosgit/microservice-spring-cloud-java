@@ -1,11 +1,15 @@
-package br.com.estudo.springservice.model;
+package br.com.estudo.springservice.domain;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class Person {
 
