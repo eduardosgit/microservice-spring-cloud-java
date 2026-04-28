@@ -1,6 +1,7 @@
 package br.com.estudo.springservice.services;
 
 import br.com.estudo.springservice.domain.Person;
+import br.com.estudo.springservice.exception.PersonNotFoundException;
 import br.com.estudo.springservice.repositories.PersonRepository;
 import br.com.estudo.springservice.resources.request.PersonRequest;
 import br.com.estudo.springservice.resources.response.PersonResponse;
@@ -62,7 +63,7 @@ public class PersonService {
 
     private Person findOrThrow(Long id) {
         return personRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Person not found"));
+                .orElseThrow(() -> new PersonNotFoundException(id));
     }
 
 }
