@@ -1,7 +1,7 @@
 # 📘 Microserviço POC — Java 21 + Spring Boot 3.5.14
 
-Este repositório contém uma **Prova de Conceito (PoC)** de um microserviço desenvolvido com foco em **aprendizagem**, utilizando tecnologias modernas do ecossistema Java e Spring.  
-O objetivo é demonstrar boas práticas de estruturação, testes, persistência e conteinerização.
+Este repositório contém uma poc de um microserviço desenvolvido com foco em **aprendizagem**, utilizando tecnologias modernas do ecossistema Java e Spring.  
+O objetivo é demonstrar boas práticas de estruturação com arquitetura em camadas, testes, persistência e conteinerização.
 
 ---
 
