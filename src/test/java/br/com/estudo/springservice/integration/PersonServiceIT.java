@@ -1,5 +1,6 @@
-package br.com.estudo.springservice.services;
+package br.com.estudo.springservice.integration;
 
+import br.com.estudo.springservice.services.PersonService;
 import br.com.estudo.springservice.testsupport.BaseIntegrationTest;
 import br.com.estudo.springservice.domain.Person;
 import br.com.estudo.springservice.repositories.PersonRepository;
