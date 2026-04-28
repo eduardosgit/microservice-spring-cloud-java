@@ -34,8 +34,9 @@ public class PersonController {
     }
 
     @DeleteMapping("/{id}")
-    public void removePerson(@PathVariable Long id) {
+    public ResponseEntity<PersonResponse> removePerson(@PathVariable Long id) {
         personService.removePerson(id);
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")
